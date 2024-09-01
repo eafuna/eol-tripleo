@@ -10,7 +10,7 @@ if [ "$user" == "root" ]; then
     #       - curl
 
     # Create 'stack' user and add it to sudoers
-    useradd stack && (echo "undercloud"; echo "undercloud") | passwd stacksh
+    useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
     echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
     chmod 0440 /etc/sudoers.d/stack
     sudo -u stack initial.sh
