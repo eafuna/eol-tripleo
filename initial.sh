@@ -12,12 +12,13 @@ if [ "$user" == "root" ]; then
     # Create 'stack' user and add it to sudoers
     useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
     echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
+    #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     chmod 0440 /etc/sudoers.d/stack
     echo "invoking stack to run initial script"
     pwd 
-    sudo -u stack initial.sh
-    curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh
-    chmod +x initial.sh
+    sudo -u stack /root/initial.sh
+    # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh 
+    # chmod +x initial.sh
 fi 
 
 if [ "$user" == "stack" ]; then
