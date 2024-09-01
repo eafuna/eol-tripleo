@@ -1,15 +1,18 @@
 #!/bin/bash
 
+# sudo -i JUST TO MAKE SURE WE HAVE ALL PRIV. DO NOT SKIP!
+# curl -O https://raw.githubusercontent.com/eafuna/tripleo-quickstart-eol-update/main/initial.sh
+
 # Create 'stack' user and add it to sudoers
 useradd stack
-passwd stack
+(echo "undercloud"; echo "undercloud") | passwd stack
 echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
 chmod 0440 /etc/sudoers.d/stack
+su – stack
 
 # CentOS, disable subscription as this is not needed
-sed -i -e 's/abc/XYZ/g' /etc/yum/pluginconf.d/subscription-manager.conf
-
-su – stack
+sed -i -e 's/enabled\=1/enable\=0/g' /etc/yum/pluginconf.d/subscription-manager.conf
+cat /etc/yum/pluginconf.d/subscription-manager.conf
 
 export VIRTHOST=127.0.0.2
 
