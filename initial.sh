@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # sudo -i JUST TO MAKE SURE WE HAVE ALL PRIV. DO NOT SKIP!
-# curl -O https://raw.githubusercontent.com/eafuna/tripleo-quickstart-eol-update/main/initial.sh
+# curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh
 
 # Create 'stack' user and add it to sudoers
 useradd stack
