@@ -14,7 +14,7 @@ if [ "$user" == "root" ]; then
     useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
 
     echo "Copy initial script to stack home"
-    cp /home/root/tripleo-quickstart/initial0.sh /home/stack/
+    cp -R /root/tripleo-quickstart /home/stack/
 
     #echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
