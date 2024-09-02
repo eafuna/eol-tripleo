@@ -2,7 +2,7 @@
 
 # sudo -i JUST TO MAKE SURE WE HAVE ALL PRIV. DO NOT SKIP!
 # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh
-
+echo "----------------> RUNNING INITIALIZATION SEQUENCE"
 user=`whoami`
 os=$(cat /etc/os-release | grep -o "CentOS")
 
@@ -35,6 +35,7 @@ if [ "$user" == "root" ]; then
 
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     echo "Invoking stack to run initial script"
+    whoami
     sudo -u stack /home/stack/tripleo-quickstart/initial0.sh
     echo "...[DEBUG] Should reach here quickly"
     pwd 
@@ -45,8 +46,9 @@ fi
 if [ "$user" == "stack" ]; then
     # yum install git -y
 
-    export VIRTHOST="127.0.0.2"
-
+    # exec su "$user" "$0" -- "$@"
+    export VIRTHOST="127.0.0.2"    
+    whoami
     pwd
     cd tripleo-quickstart/
     bash quickstart.sh --install-deps
