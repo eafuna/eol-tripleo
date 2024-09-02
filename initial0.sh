@@ -16,15 +16,20 @@ if [ "$user" == "root" ]; then
         cat /etc/yum/pluginconf.d/subscription-manager.conf
     fi 
 
-    echo "Create stack user"
-    useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
+    getent passwd $1 > /dev/null 2&>1
+    if [ $? -eq 0 ]; then
+        echo "Stack user exists. Skipping creation"
+    else
+        echo "Stack user not exist. Creating"
+        useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
 
-    echo "Copy initial script to stack home"
-    cp -R /root/tripleo-quickstart /home/stack/
+        echo "Copy initial script to stack home"
+        cp -R /root/tripleo-quickstart /home/stack/
 
-    echo "Promote stack as sudoer setting nopasswd when logged"
-    # echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
-    # chmod 0440 /etc/sudoers.d/stack
+        echo "Promote stack as sudoer setting nopasswd when logged"
+        # echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
+        # chmod 0440 /etc/sudoers.d/stack
+    fi    
 
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     #echo "invoking stack to run initial script"
