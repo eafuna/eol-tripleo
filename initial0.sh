@@ -50,7 +50,7 @@ if [ "$user" == "stack" ]; then
     export VIRTHOST="127.0.0.2"    
     whoami
     pwd
-    cd tripleo-quickstart/
+    cd /home/stack/tripleo-quickstart/
     bash quickstart.sh --install-deps
 
     # https://github.com/openstack-archive/tripleo-quickstart.git
