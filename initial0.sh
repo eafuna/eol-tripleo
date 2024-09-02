@@ -16,7 +16,7 @@ if [ "$user" == "root" ]; then
         cat /etc/yum/pluginconf.d/subscription-manager.conf
     fi 
 
-    getent passwd $1 > /dev/null 2&>1
+    getent passwd stack > /dev/null 2&>1
     if [ $? -eq 0 ]; then
         echo "Stack user exists. Skipping creation"
     else
