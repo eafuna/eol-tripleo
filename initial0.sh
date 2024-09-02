@@ -36,19 +36,18 @@ if [ "$user" == "root" ]; then
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     echo "invoking stack to run initial script"
     pwd 
-    sudo -u stack /home/stack/initial0.sh
+    sudo -u stack /home/stack/tripleo-quickstart/initial0.sh
     # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh 
     # chmod +x initial.sh
 fi 
 
-# if [ "$user" == "stack" ]; then
-    # CentOS, disable subscription as this is not needed
-    # cat /etc/yum/pluginconf.d/subscription-manager.conf
-
+if [ "$user" == "stack" ]; then
     # yum install git -y
 
-    # export VIRTHOST="127.0.0.2"
+    export VIRTHOST="127.0.0.2"
+
+    bash quickstart.sh --install-deps
 
     # https://github.com/openstack-archive/tripleo-quickstart.git
     # git clone "https://github.com/eafuna/eol-tripleo.git" tripleo-quickstart
-# if
+fi
