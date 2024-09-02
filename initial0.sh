@@ -27,10 +27,12 @@ if [ "$user" == "root" ]; then
         cp -R /root/tripleo-quickstart /home/stack/
 
         echo "Promote stack as sudoer setting nopasswd when logged"
-        # echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
-        # chmod 0440 /etc/sudoers.d/stack
+
     fi    
 
+    echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
+    chmod 0440 /etc/sudoers.d/stack
+    
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     #echo "invoking stack to run initial script"
     #pwd 
