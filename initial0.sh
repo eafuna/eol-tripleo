@@ -8,8 +8,9 @@ os=$(cat /etc/os-release | grep -o "CentOS")
 
 if [ "$user" == "root" ]; then
     
-    source /etc/os-release    
-    if [ (echo $NAME | grep -o "CentOS") ]; then   
+    source /etc/os-release
+    os=$("$NAME" | grep -o "CentOS")
+    if [ "$os"=="CentOS" ]; then   
         echo "CentOS detected; disable subscription on pluginconf" 
         # sed -i -e 's/enabled\=1/enable\=0/g' /etc/yum/pluginconf.d/subscription-manager.conf
     fi 
