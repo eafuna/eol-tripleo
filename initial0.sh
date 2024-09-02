@@ -25,18 +25,18 @@ if [ "$user" == "root" ]; then
 
         echo "Copy initial script to stack home"
         cp -R /root/tripleo-quickstart /home/stack/
+        chown -R stack:stack /home/stack/tripleo-quickstart
 
         echo "Promote stack as sudoer setting nopasswd when logged"
+        echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
+        chmod 0440 /etc/sudoers.d/stack
 
     fi    
 
-    echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
-    chmod 0440 /etc/sudoers.d/stack
-    
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
-    #echo "invoking stack to run initial script"
-    #pwd 
-    #sudo -u stack /root/initial.sh
+    echo "invoking stack to run initial script"
+    pwd 
+    sudo -u stack /home/stack/initial0.sh
     # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh 
     # chmod +x initial.sh
 fi 
