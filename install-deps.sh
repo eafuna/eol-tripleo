@@ -250,6 +250,7 @@ install_bindep(){
 
 install_package_deps_via_bindep(){
     echo "install_package_deps_via_bindep"
+    echo pwd    
     sudo -n true && passwordless_sudo="1" || passwordless_sudo="0"
     if [ "$passwordless_sudo" == "1" ] || [ "$USER_OVERRIDE_SUDO_CHECK" == "1" ]; then
         PATH=$PATH:~/.local/bin bindep -b || sudo $(package_manager) install `bindep -b`;
