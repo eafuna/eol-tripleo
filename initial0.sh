@@ -68,7 +68,7 @@ if [ "$user" == "stack" ]; then
     Current Path: $PATH
     Current User: $(whoami)
     Working Directory: $(pwd)
-    EOF
+    `EOF
 
     bash quickstart.sh --install-deps
 
