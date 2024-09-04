@@ -24,9 +24,14 @@ if [ "$user" == "root" ]; then
         useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
 
         echo "Copy initial script to stack home"
-        cp -R /root/tripleo-quickstart /home/stack/
-        chown -R stack:stack /home/stack/tripleo-quickstart
 
+        [[ -d /home/stack/tripleo-quickstart ]] && sudo rm -r /home/stack/tripleo-quickstart && echo "..removed existing stack tripleo directory"  
+        
+        (cd /root/tripleo-quickstart && git pull)
+        
+        cp -R /root/tripleo-quickstart /home/stack/
+        
+        chown -R stack:stack /home/stack/tripleo-quickstart
 
         # extract time from google 
         # IMPORTANT! Make sure NTP is available and properly configured, otherwise, Certificates will fail which
