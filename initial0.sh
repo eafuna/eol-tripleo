@@ -27,6 +27,14 @@ if [ "$user" == "root" ]; then
         cp -R /root/tripleo-quickstart /home/stack/
         chown -R stack:stack /home/stack/tripleo-quickstart
 
+        # adding its stack bin to PATH
+        export PATH="$PATH:/home/stack/.local/bin;"
+
+        # extract time from google 
+        # IMPORTANT! Make sure NTP is available and properly configured, otherwise, Certificates will fail which
+        # will result to broken packages
+        date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
+
         echo "Promote stack as sudoer setting nopasswd when logged"
         echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
         chmod 0440 /etc/sudoers.d/stack
