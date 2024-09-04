@@ -259,8 +259,11 @@ install_package_deps_via_bindep(){
         # EPEL could be installed in the same transaction as other packages on CentOS/RHEL
         # This can leave the system with an older ansible version. Ansible 2.7+ required
         # Run through the deps and update them
-        yum-config-manager --enable epel || true
-        sudo $(package_manager) update `bindep -b -l newline`
+        su yum-config-manager --enable epel || true
+        su $(package_manager) update `bindep -b -l newline`
+        echo $(whoami)
+        exit
+
     else
         print_sudo_warning
     fi
