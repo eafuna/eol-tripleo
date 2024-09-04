@@ -3,7 +3,7 @@
 # sudo -i JUST TO MAKE SURE WE HAVE ALL PRIV. DO NOT SKIP!
 # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh
 echo "----------------> RUNNING INITIALIZATION SEQUENCE"
-user=`whoami`
+user=$(whoami)
 os=$(cat /etc/os-release | grep -o "CentOS")
 
 if [ "$user" == "root" ]; then
@@ -23,26 +23,26 @@ if [ "$user" == "root" ]; then
         echo "Stack user not exist. Creating"
         useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
 
-        echo "Copy initial script to stack home"
-
-        [[ -d /home/stack/tripleo-quickstart ]] && sudo rm -r /home/stack/tripleo-quickstart && echo "..removed existing stack tripleo directory"  
-        
-        (cd /root/tripleo-quickstart && git pull)
-        
-        cp -R /root/tripleo-quickstart /home/stack/
-        
-        chown -R stack:stack /home/stack/tripleo-quickstart
-
         # extract time from google 
         # IMPORTANT! Make sure NTP is available and properly configured, otherwise, Certificates will fail which
         # will result to broken packages
-        date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
+        # date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
 
         echo "Promote stack as sudoer setting nopasswd when logged"
         echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
         chmod 0440 /etc/sudoers.d/stack
 
     fi    
+
+    echo "Copy initial script to stack home"
+
+    [[ -d /home/stack/tripleo-quickstart ]] && sudo rm -r /home/stack/tripleo-quickstart && echo "..removed existing stack tripleo directory"  
+    
+    (cd /root/tripleo-quickstart && git pull)
+    
+    cp -R /root/tripleo-quickstart /home/stack/
+    
+    chown -R stack:stack /home/stack/tripleo-quickstart
 
     #curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh /home/stack/  
     echo "Invoking stack to run initial script"
