@@ -27,8 +27,6 @@ if [ "$user" == "root" ]; then
         cp -R /root/tripleo-quickstart /home/stack/
         chown -R stack:stack /home/stack/tripleo-quickstart
 
-        # adding its stack bin to PATH
-        export PATH="$PATH:/home/stack/.local/bin;"
 
         # extract time from google 
         # IMPORTANT! Make sure NTP is available and properly configured, otherwise, Certificates will fail which
@@ -54,11 +52,19 @@ fi
 if [ "$user" == "stack" ]; then
     # yum install git -y
 
+    # adding its stack bin to PATH
+    export PATH="$PATH:/home/stack/.local/bin;"
     # exec su "$user" "$0" -- "$@"
     export VIRTHOST="127.0.0.2"    
-    whoami
-    pwd
+
     cd /home/stack/tripleo-quickstart/
+
+    cat << EOF 
+    Current Path: $PATH
+    Current User: $(whoami)
+    Working Directory: $(pwd)
+    EOF
+
     bash quickstart.sh --install-deps
 
     # https://github.com/openstack-archive/tripleo-quickstart.git
