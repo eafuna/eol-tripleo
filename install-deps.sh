@@ -253,6 +253,7 @@ install_package_deps_via_bindep(){
     pwd    
     sudo -n true && passwordless_sudo="1" || passwordless_sudo="0"
     if [ "$passwordless_sudo" == "1" ] || [ "$USER_OVERRIDE_SUDO_CHECK" == "1" ]; then
+        echo "... validating if condition here"
         PATH=$PATH:~/.local/bin bindep -b || sudo $(package_manager) install `bindep -b`;
         # EPEL will NOT be installed on any nodepool nodes.
         # EPEL could be installed in the same transaction as other packages on CentOS/RHEL
