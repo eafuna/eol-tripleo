@@ -261,7 +261,10 @@ install_package_deps_via_bindep(){
         # Run through the deps and update them
         yum-config-manager --enable epel || true
         sudo $(package_manager) update `bindep -b -l newline`
-        echo "sudo $(package_manager) update `bindep -b -l newline`"
+        cat << EOF
+        sudo $(package_manager) update `bindep -b -l newline`
+        yum-config-manager --enable epel || true
+EOF
         echo $(whoami)
     else
         print_sudo_warning
