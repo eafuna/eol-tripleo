@@ -243,8 +243,8 @@ install_virtual_env(){
 install_bindep(){
     # --user installs fail from a virtenv
     echo "Running install_bindep"
-    $(python_cmd) -m pip install --user bindep --upgrade
     export PATH=$PATH:$HOME/.local/bin
+    $(python_cmd) -m pip install --user bindep --upgrade
     echo -e "\n\e[32m SUCCESS: installed bindep. \e[0m"
 }
 
@@ -253,7 +253,6 @@ install_package_deps_via_bindep(){
     pwd    
     sudo -n true && passwordless_sudo="1" || passwordless_sudo="0"
     if [ "$passwordless_sudo" == "1" ] || [ "$USER_OVERRIDE_SUDO_CHECK" == "1" ]; then
-        echo "... validating if condition here"
         PATH=$PATH:~/.local/bin bindep -b || sudo $(package_manager) install `bindep -b`;
         # EPEL will NOT be installed on any nodepool nodes.
         # EPEL could be installed in the same transaction as other packages on CentOS/RHEL
