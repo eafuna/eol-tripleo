@@ -7,6 +7,13 @@ user=$(whoami)
 os=$(cat /etc/os-release | grep -o "CentOS")
 
 if [ "$user" == "root" ]; then
+
+    # IMPORTANT! Make sure time is properly configured, otherwise, Certificates will fail which
+    # will result to broken packages. Additional requirement is the NTP must have been properly 
+    # configured. See https://docs.openstack.org/install-guide/environment-ntp-verify.html
+
+    # We are using here google to extract current date 
+    date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
     
     # disable plugin subscription on CentOS only
     source /etc/os-release
@@ -26,13 +33,6 @@ if [ "$user" == "root" ]; then
         # CHANGE PASSWORD!
         echo "Stack user not exist. Creating"
         useradd stack && (echo "undercloud"; echo "undercloud") | passwd stack
-
-        # IMPORTANT! Make sure time is properly configured, otherwise, Certificates will fail which
-        # will result to broken packages. Additional requirement is the NTP must have been properly 
-        # configured. See https://docs.openstack.org/install-guide/environment-ntp-verify.html
-
-        # We are using here google to extract current date 
-        # date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
 
         echo "Promote stack as sudoer setting nopasswd when logged"
         echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
@@ -66,7 +66,8 @@ if [ "$user" == "stack" ]; then
 
     echo "...Running this now as $(whoami)"
 
-    # adding its stack bin to PATH
+    # adding its stack bin to PATH; 
+    # remember to set this instead in bashrc
     export PATH="$PATH:/home/stack/.local/bin;"
     export VIRTHOST="127.0.0.2"    
 
