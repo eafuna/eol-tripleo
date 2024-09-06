@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# BEFORE RUNNING THIS SCRIPT:
+# - git installed
+# - sudo -i (rooted)
+
 # sudo -i JUST TO MAKE SURE WE HAVE ALL PRIV. DO NOT SKIP!
 # curl -O https://raw.githubusercontent.com/eafuna/eol-tripleo/main/initial.sh
 echo "----------------> RUNNING INITIALIZATION SEQUENCE"
