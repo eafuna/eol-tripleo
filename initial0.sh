@@ -17,7 +17,7 @@ if [ "$user" == "root" ]; then
     # configured. See https://docs.openstack.org/install-guide/environment-ntp-verify.html
 
     # We are using here google to extract current date 
-    date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
+    #date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
     
     # disable plugin subscription on CentOS only
     source /etc/os-release
