@@ -1,5 +1,18 @@
 #!/bin/bash
 
+##################
+# IMPORTANT! must be there!
+##################
+# env
+# VIRTHOST=127.0.0.2
+# 
+# NOTES! 9/10
+# Logic failed on os; changed plugin.conf subscription enabled; i dont see any real issue 
+# DB Version too old on user creation >> check logs; see if this will be an issue 
+# could not open available domains --> IMPORTANT TO CHECK
+
+
+
 # BEFORE RUNNING THIS SCRIPT:
 # - git installed
 # - sudo -i (rooted)
@@ -17,7 +30,6 @@ if [ "$user" == "root" ]; then
     # configured. See https://docs.openstack.org/install-guide/environment-ntp-verify.html
 
     # We are using here google to extract current date 
-    #date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')"
     
     # disable plugin subscription on CentOS only
     source /etc/os-release
@@ -25,6 +37,7 @@ if [ "$user" == "root" ]; then
     if [ "$os"=="CentOS" ]; then   
         echo "CentOS detected; updating subscription disabled" 
         sed -i -e 's/enabled\=1/enable\=0/g' /etc/yum/pluginconf.d/subscription-manager.conf
+        date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g')" 
     fi 
 
     # creating user 'stack', skip whole process if done
