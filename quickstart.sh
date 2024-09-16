@@ -251,10 +251,13 @@ bootstrap () {
         if [ -x "$ZUUL_CLONER" ] && [ ! -z "$ZUUL_BRANCH" ]; then
                 # pull in tripleo-quickstart-extras from source
                 echo "Clone tripleo-quickstart-extras in bootstrap and install..."
+                # $ZUUL_CLONER --cache-dir \
+                #     /opt/git \
+                #     https://opendev.org \
+                #     openstack/tripleo-quickstart-extras
                 $ZUUL_CLONER --cache-dir \
                     /opt/git \
-                    https://opendev.org \
-                    openstack/tripleo-quickstart-extras
+                    https://github.com/eafuna/eol-tripleo-extras.git
                 pushd openstack/tripleo-quickstart-extras
                 if [ $OPT_CLEAN == 1 ]; then
                     echo "Running in bootstrap: $(python_cmd) -m pip install --no-cache-dir --force-reinstall ."
