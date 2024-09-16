@@ -146,14 +146,22 @@ install_ansible_collections_deps(){
     # [2] https://bugzilla.redhat.com/show_bug.cgi?id=2109807
     if [[ ! -d $VIRTUAL_ENV/share/ansible/collections/ansible_collections/openstack/cloud ]]; then
         if [[ $QUICKSTART_RELEASE =~ .*(train|victoria|wallaby|rhos-16|rhos-17).* ]]; then
+            # retry 10 ansible-galaxy collection install -vvv --force \
+            #     git+https://opendev.org/openstack/ansible-collections-openstack,stable/1.0.0 \
+            #     -p $VIRTUAL_ENV/share/ansible/collections
             retry 10 ansible-galaxy collection install -vvv --force \
-                git+https://opendev.org/openstack/ansible-collections-openstack,stable/1.0.0 \
+                git+https://opendev.org/openstack/ansible-collections-openstack/src/branch/stable/1.0.0 \
                 -p $VIRTUAL_ENV/share/ansible/collections
+                            
         else
             # FIXME(jmeng): Replace commit hash with 'master' once Ansible OpenStack collection 2.0.0 has been released
+            # retry 10 ansible-galaxy collection install -vvv --force \
+            #     git+https://opendev.org/openstack/ansible-collections-openstack,ed36d82a0c60a841d2f30c61a50d60531481b2cc \
+            #     -p $VIRTUAL_ENV/share/ansible/collections
             retry 10 ansible-galaxy collection install -vvv --force \
-                git+https://opendev.org/openstack/ansible-collections-openstack,ed36d82a0c60a841d2f30c61a50d60531481b2cc \
+                git+https://opendev.org/openstack/ansible-collections-openstack/src/branch/stable/1.0.0 \
                 -p $VIRTUAL_ENV/share/ansible/collections
+
         fi
     fi
 
