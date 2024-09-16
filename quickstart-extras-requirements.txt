@@ -1,11 +1,15 @@
 git+https://github.com/eafuna/eol-tripleo-extras.git/#egg=tripleo-quickstart-extras
 #---> git+https://opendev.org/openstack/tripleo-quickstart-extras/#egg=tripleo-quickstart-extras
+git+https://github.com/eafuna/eol-tripleo-ha-utils.git/#egg=tripleo-ha-utils
 #---> git+https://opendev.org/openstack/tripleo-ha-utils/#egg=tripleo-ha-utils
 # browbeat is no longer supported integrated w/ tq
 #git+https://opendev.org/x/browbeat/#egg=browbeat
 # TODO(rcastillo): Install ansible-role-collect-log through galaxy
+git+https://github.com/eafuna/eol-ansible-role-collect-logs.git/#egg=ansible-role-collect-logs
 #---> git+https://opendev.org/openstack/ansible-role-collect-logs/#egg=ansible-role-collect-logs
+git+https://github.com/eafuna/eol-openstack-tempest-skiplist.git/#egg=openstack-tempest-skiplist
 #---> git+https://opendev.org/openstack/openstack-tempest-skiplist/#egg=openstack-tempest-skiplist
+git+https://github.com/eafuna/eol-tripleo-ci.git/#egg=tripleo-ci
 #---> git+https://opendev.org/openstack/tripleo-ci/#egg=tripleo-ci
 # NOTE: tripleo-ansible, tripleo-ipa are required for some jobs
 # (including standalone deployed with TLS).
